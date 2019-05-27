@@ -2,6 +2,12 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.4.0'
+gem 'materialize-sass'
+gem 'mini_racer'
+gem 'autoprefixer-rails', '~> 9.5.1.1'
+gem 'jquery'
+gem 'jquery-rails'
+gem 'devise', git: 'https://github.com/plataformatec/devise.git'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
