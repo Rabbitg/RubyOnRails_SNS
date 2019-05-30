@@ -8,6 +8,8 @@ gem 'autoprefixer-rails', '~> 9.5.1.1'
 gem 'jquery'
 gem 'jquery-rails'
 gem 'devise', git: 'https://github.com/plataformatec/devise.git'
+gem 'carrierwave'
+gem 'mini_magick'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
