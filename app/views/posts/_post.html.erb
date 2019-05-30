@@ -1,8 +1,12 @@
-<div class="card">
+<div class="card post">
 	<div class="card-content">
+		<% if post.user.avatar %>
+			<img class="circle thumbnail" src="<%= post.user.avatar.thumb.url %>">
+		<% end %>
+				<%= post.user.name %></span>
 		<div class="font-size">
-		<span class="card-title"><%= post.user.name %></span>
-		<span><%= post.created_at %></span>
+		<span class="card-title">
+
 		</div>
 		<% if user_signed_in? && current_user != post.user %>
 		 <% if current_user.followings.include?(post.user) %>		  
@@ -31,6 +35,7 @@
 			<% else %>
 				<%= link_to "좋아요", post_like_path(post), method: "post" %>
 			<% end %>
+		<%="#{time_ago_in_words(post.created_at)} ago "%>
 		<% if current_user.id == post.user.id %>
 		
 			<%= link_to "삭제", post_path(post), method: "delete", class: "right" %>		
