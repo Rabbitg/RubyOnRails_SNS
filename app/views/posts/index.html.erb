@@ -3,7 +3,11 @@
 		<div class="col s12 m4">
 			<div class="card">
 				<div class="card-image">
-					<div class= "avatar-size">
+					<div class= "image-size" style="width: 200px;
+ height: 200px;
+ background-size: cover;
+ display: block;
+ border-radius: 100px;">
 					<img src="<%= current_user.avatar.url %>" />						
 					</div>
 				</div>
@@ -13,7 +17,10 @@
 					<p>이메일 : <%= current_user.email %></p>
 					<p>올린 글 개수 : <%= @posts_count %></p>
 					<p>팔로워 : <%= current_user.followers.length %></p>
-					<p>팔로잉 : <%= current_user.followings.length %></p>			
+					<p>팔로잉 : <%= current_user.followings.length %></p>
+					<%= link_to mypost_path(current_user.id) do %>
+					<p>내가 쓴 글 </p>
+					<% end %>
 					<%= link_to new_post_path do %> 
 					<button class="btn">글 쓰기</button>
 					<% end %>

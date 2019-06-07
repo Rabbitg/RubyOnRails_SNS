@@ -1,0 +1,23 @@
+<% @mypost.each do |mp| %>
+<section class= "post" style="width:350px; margin:0 auto">
+	<div class= "user">
+		<div class="avatar">
+			<img class="circle thumbnail" style="width: 32px;height: 32px;background-size: cover;display: block;border-radius: 32px; float:left;" src="<%= mp.user.avatar.thumb.url %>">
+		</div>
+	<span class="card-title" style="float:left">
+		<%= mp.user.name %></span>
+	<div><%=image_tag("#{mp.image}", size: "350x250", class: 'main-image') %></div>
+	<p class="pre-line">
+	<div><%= mp.content %></div>
+	</p>
+		<!-- 수정 삭제 구분선-->
+	<ul class="collection">
+	<div><%= link_to "수정", edit_post_path(mp), class: "right"%></div>
+	<div><%= link_to "삭제", post_path(mp), method: "delete", class: "right" %></div>	
+	</ul>
+	
+
+	</div>
+</section>
+		
+<% end %>

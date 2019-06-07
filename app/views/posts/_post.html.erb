@@ -1,9 +1,16 @@
 <div class="card post">
 	<div class="card-content">
+		<!-- 내가 쓴글 아바타에도 적용 -->
 		<% if post.user.avatar %>
-			<img class="circle thumbnail" src="<%= post.user.avatar.thumb.url %>">
+		<%= link_to mypost_path(post.user.id) do %>
+			<img class="circle thumbnail" src="<%= post.user.avatar.thumb.url %>" style="width: 32px;height: 32px;background-size: cover;display: block;border-radius: 32px; float:left;">
 		<% end %>
-				<%= post.user.name %></span>
+		<% end %>
+		<!-- 내가 쓴글 이름에도 적용 -->
+		<%= link_to mypost_path(post.user.id) do %>
+			<%= post.user.name %>
+		<% end %>
+		
 		<div class="font-size">
 		<span class="card-title">
 

@@ -6,7 +6,8 @@
 				<%= form_tag post_path(@post), method: "patch", multipart: true do %>
 				<input type="hidden" name="id" value="<%=@post.content%>"> 
 				<div class="input-field"> 
-					<%= file_field_tag :image %> 
+					<%= file_field_tag :image %>
+					<div><%=image_tag("#{@post.image}", size: "350x250") %></div>
 				</div>
 				<div class="input-field"> 
 					<%= text_area_tag :content, @post.content, class: "materialize-textarea", placeholder: "무슨 생각을 하고 있나요?" %>

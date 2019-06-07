@@ -11,6 +11,13 @@ class PostsController < ApplicationController
   def new
   end
 	
+  def mypost
+	  @mypost = Post.where(user_id: params[:user_id]).all
+	 unless user_signed_in?
+      redirect_to '/users/sign_in'
+     end
+  end
+	
   def create
 	new_post = Post.new(user_id: current_user.id, 
 						content: params[:content],
