@@ -25,11 +25,13 @@
 			<% end %>
 				<span>좋아요 <%= mp.likes.size%>개</span>
 		<!-- 수정 삭제 -->
+		<% if current_user.id == mp.user.id %>
 	<ul class="collection">
 	<span style="float:left"><%="#{time_ago_in_words(mp.created_at)} ago "%></span>
 	<div><%= link_to "수정", edit_post_path(mp), class: "right"%></div>
 	<div><%= link_to "삭제", post_path(mp), method: "delete", class: "right" %></div>	
 	</ul>
+		<% end %>
 	</div>
 </div>
 	<div class="card-action"> 
@@ -42,7 +44,7 @@
 			</div>
 			<% end %>
 			<% if mp.comments.present? %>
-			<ul class="collection"> 
+			<ul class="collection">
 				<% mp.comments.each do |comment| %> 
 				<li class="collection-item">
 					<span class="title"><%= comment.user.name %></span> 
