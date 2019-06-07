@@ -12,7 +12,7 @@ class PostsController < ApplicationController
   end
 	
   def mypost
-	  @mypost = Post.where(user_id: params[:user_id]).all
+	  @mypost = Post.where(user_id: params[:user_id]).all.order("created_at DESC")
 	 unless user_signed_in?
       redirect_to '/users/sign_in'
      end

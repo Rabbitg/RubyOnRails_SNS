@@ -1,20 +1,17 @@
-<div class="card post">
+<div class="card post" style= "width: 25rem;" >
 	<div class="card-content">
 		<!-- 내가 쓴글 아바타에도 적용 -->
 		<% if post.user.avatar %>
-		<%= link_to mypost_path(post.user.id) do %>
-			<img class="circle thumbnail" src="<%= post.user.avatar.thumb.url %>" style="width: 32px;height: 32px;background-size: cover;display: block;border-radius: 32px; float:left;">
-		<% end %>
+			<%= link_to mypost_path(post.user.id) do %>
+			<img class="circle thumbnail" src="<%= post.user.avatar.thumb.url %>" style="width: 32px;height: 32px;background-size: cover;display: block;border-radius: 30px; float:left;">
+			<% end %>
 		<% end %>
 		<!-- 내가 쓴글 이름에도 적용 -->
-		<%= link_to mypost_path(post.user.id) do %>
+		<%= link_to mypost_path(post.user.id), style: "margin-left: 5px;" do %>
 			<%= post.user.name %>
 		<% end %>
-		
-		<div class="font-size">
-		<span class="card-title">
 
-		</div>
+			
 		<% if user_signed_in? && current_user != post.user %>
 		 <% if current_user.followings.include?(post.user) %>		  
 		<%= form_tag follow_path(post.user.id), remote:true,  method: :delete, class: "right" do %>		
@@ -27,29 +24,30 @@
 		 <% end %>
 		<% end %>
 	<% end %>
+			<!-- 작성 이미지 업로드 -->
 		<div class= "card-content">
 			<% if post.image.url %>
 				<img class="image-size" src= "<%= post.image.url%>">
 			<% end %>
 		</div>
+			<!-- 작성 내용 -->
 		<p class= "pre-line"><%= post.content %></p>
 	</div>
-	
+		<!-- 좋아요 -->
 	<div class="card-action">
-		<%= post.likes.size %> 명이 좋아합니다.
 			<% if current_user.is_like?(post) %>
-				<%= link_to "좋아요 취소", post_like_path(post), remote:true, method: "post" %>
-				<span class="like-btn-unlike"></span>
+				<%= link_to image_tag("/like.png", height: '20', width: '20'), post_like_path(post), remote:true, method: "post" %>
 			<% else %>
-				<%= link_to "좋아요", post_like_path(post),remote:true, method: "post" %>
-				<span class="like-btn"></span>
+				<%= link_to image_tag("/unlike.png", height: '20', width: '20'), post_like_path(post),remote:true, method: "post" %>
 			<% end %>
-		<%="#{time_ago_in_words(post.created_at)} ago "%>
+				<span>좋아요 <%= post.likes.size%>개</span>
+		<span style="float:right"><%="#{time_ago_in_words(post.created_at)} ago "%></span>
+		<!-- 현재유저와 작성자 유저가 일치하면 삭제 and 수정 -->
 		<% if current_user.id == post.user.id %>
-		
-			<%= link_to "삭제", post_path(post), method: "delete", class: "right" %>		
-			<%= link_to "수정", edit_post_path(post), class: "right"%>
+			<%= link_to "삭제", post_path(post), method: "delete", :style=> "float:right" %>		
+			<%= link_to "수정", edit_post_path(post), :style => "float:right"%>
 		<% end %>
+		</div>
 		
 				<div class="card-action"> 
 			<%= form_tag post_comments_path(post) do %>

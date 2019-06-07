@@ -1,23 +1,62 @@
+<div class="card post">
 <% @mypost.each do |mp| %>
-<section class= "post" style="width:350px; margin:0 auto">
+<div class="card post" style= "width: 25rem; margin:0 auto" >
+<!-- 내가 쓴 글 목록 -->
+	<div class="card-content">
+		<div class="card post">
+			
 	<div class= "user">
 		<div class="avatar">
 			<img class="circle thumbnail" style="width: 32px;height: 32px;background-size: cover;display: block;border-radius: 32px; float:left;" src="<%= mp.user.avatar.thumb.url %>">
 		</div>
+			</div>
 	<span class="card-title" style="float:left">
 		<%= mp.user.name %></span>
-	<div><%=image_tag("#{mp.image}", size: "350x250", class: 'main-image') %></div>
+		
+	<div style = "width: 300px; margin:0 auto"><%=image_tag("#{mp.image}", width: "300;", height:"300;", class: 'main-image') %></div>
 	<p class="pre-line">
 	<div><%= mp.content %></div>
 	</p>
-		<!-- 수정 삭제 구분선-->
+		<!-- 좋아요 -->
+		<% if current_user.is_like?(mp) %>
+				<%= link_to image_tag("/like.png", height: '20', width: '20'), post_like_path(mp), remote:true, method: "post" %>
+			<% else %>
+				<%= link_to image_tag("/unlike.png", height: '20', width: '20'), post_like_path(mp),remote:true, method: "post" %>
+			<% end %>
+				<span>좋아요 <%= mp.likes.size%>개</span>
+		<!-- 수정 삭제 -->
 	<ul class="collection">
+	<span style="float:left"><%="#{time_ago_in_words(mp.created_at)} ago "%></span>
 	<div><%= link_to "수정", edit_post_path(mp), class: "right"%></div>
 	<div><%= link_to "삭제", post_path(mp), method: "delete", class: "right" %></div>	
 	</ul>
-	
+	</div>
+</div>
+	<div class="card-action"> 
+			<%= form_tag post_comments_path(mp) do %>
+			  <div class="input-field">
+				  <%= text_area_tag :content, nil, class: "textarea", placeholder: "댓글을 작성해주세요.", required: true %>
+			  </div>
+			<div class="input-field">
+				<%= button_tag "댓글 쓰기", class: "btn" %>
+			</div>
+			<% end %>
+			<% if mp.comments.present? %>
+			<ul class="collection"> 
+				<% mp.comments.each do |comment| %> 
+				<li class="collection-item">
+					<span class="title"><%= comment.user.name %></span> 
+					<span class="right"><%= comment.created_at %></span> 
+					<p class="pre-line"> <p><%= comment.content %></p>
+					<% if comment.user.id == current_user.id %>
+					<div><%= link_to "삭제", post_comment_path(mp, comment), method: "delete" %></div> 
+					<% end %> 
+				</li> 
+				<% end %>
+			</ul> 
+		<% end %>
 
 	</div>
-</section>
-		
 <% end %>
+</div>
+</div>
