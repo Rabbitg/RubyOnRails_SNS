@@ -77,15 +77,15 @@
 			<ul class="collection"> 
 				<% post.comments.each do |comment| %> 
 				<li class="collection-item">
+					<%= link_to mypost_path(post.user.id), style: "margin-left: 10px; font-size:12pt" do %>
 					<span class="title"><%= comment.user.name %></span> 
-					<span class="right"><%= comment.created_at %></span> 
-					<p class="pre-line"> <p><%= comment.content %></p>
+					<% end %>
+					<span class="right"><%= comment.created_at%></span>	
+					<span class="float:left"><%= comment.content %></span>
 					<% if comment.user.id == current_user.id %>
-					<div><%= link_to "삭제", post_comment_path(post, comment), method: "delete" %></div> 
+					<div><%= link_to "삭제", post_comment_path(post, comment), method: "delete", class: "right" %></div> 
 					<% end %> 
 				</li> 
 				<% end %>
 			</ul>
 		<% end %>
-
-	

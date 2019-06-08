@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>GGram</title>
+	<title>Diary</title>
 	<%= csrf_meta_tags %>
 		<%= csp_meta_tag %>
 			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -12,49 +12,23 @@
 </head>
 
 <body>
-<div class="navbar">
-	<nav>
-		<div class="navbar-wrapper">
-			<a href="/posts" class="brand-logo" style="auto;margin-top:5px">
+	<nav class="myNavbar">
+		<div class= "container">
+			<a href="/posts" class="brand-logo center">
 				<i class= "material-icons">calendar_today</i>Diary</a>
-			<a href="#" data-target="mobile-demo" class="sidenav-trigger">
-				<i class="material-icons">menu</i>
-			</a>
-			<ul class="right hide-on-med-and-down">
-				<li><a href="/posts">Posts</a></li>
-				<% if user_signed_in?%>
-					<li>"<%= current_user.username %>"님 환영합니다.</li>
-				<li><%= link_to 'Sign out', destroy_user_session_path, method:'delete' %></li>
-					<% else %>
-				<li><a href="/users/sign_in">Sign in</a></li>
-				<li><a href="/users/sign_up">Sign up</a></li>
-						<% end %>
-			</ul>
-		</div>
+				
 	</nav>
-</div>
-	<ul class="sidenav" id="mobile-demo">
-		<% if user_signed_in?%>
-					<li>"<%= current_user.username %>"님 환영합니다.</li>
-		<li><a href="/posts">Posts</a></li>
-				<li><%= link_to 'Sign out', destroy_user_session_path, method:'delete' %></li>
-
-		<% else %>
-		<li>
-			<li><a href="/users/sign_in">Sign in</a></li>
-			<a href="/users/sign_up">Sign up</a>
-		</li>
-		<% end %>
-	</ul>
+	
 	<div class="fixed-action-btn">
   <a class="btn-floating btn-large red">
     <i class="large material-icons" >add</i>
   </a>
   <ul>
-    <li><a class="btn-floating red" href="/posts/new"><i class="material-icons">mode_edit</i></a></li>
-    <li><a class="btn-floating yellow darken-1" href="/users/edit"><i class="material-icons">settings</i></a></li>
-    <li><a class="btn-floating green" href="/users/sign_out" data-method="delete"><i class="material-icons">exit_to_app</i></a></li>
-    <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+	  <li><a class="btn-floating green" href="/users/sign_out" data-method="delete"><i class="material-icons">exit_to_app</i></a></li>
+	  <li><a class="btn-floating yellow darken-1" href="/users/edit"><i class="material-icons">settings</i></a></li>
+	  <li><a class="btn-floating yellow darken-1" href="/posts"><i class="material-icons">home</i></a></li>
+      
+	  <li><a class="btn-floating red" href="/posts/new"><i class="material-icons">mode_edit</i></a></li>
   </ul>
 </div>
 
