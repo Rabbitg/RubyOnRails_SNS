@@ -12,9 +12,11 @@
 </head>
 
 <body>
+<div class="navbar">
 	<nav>
-		<div class="nav-wrapper">
-			<a href="/posts" class="brand-logo">Lab</a>
+		<div class="navbar-wrapper">
+			<a href="/posts" class="brand-logo" style="auto;margin-top:5px">
+				<i class= "material-icons">calendar_today</i>Diary</a>
 			<a href="#" data-target="mobile-demo" class="sidenav-trigger">
 				<i class="material-icons">menu</i>
 			</a>
@@ -31,7 +33,7 @@
 			</ul>
 		</div>
 	</nav>
-
+</div>
 	<ul class="sidenav" id="mobile-demo">
 		<% if user_signed_in?%>
 					<li>"<%= current_user.username %>"님 환영합니다.</li>

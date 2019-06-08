@@ -1,61 +1,76 @@
-<div class="card post" style= "width: 25rem;" >
-	<div class="card-content">
-		<!-- 내가 쓴글 아바타에도 적용 -->
+<div class="card post" style= "width: 25rem; " >	
+	<div class="card post">
+		
+			
+		<!-- 글 작성자 아바타 적용 -->
 		<% if post.user.avatar %>
 			<%= link_to mypost_path(post.user.id) do %>
-			<img class="circle thumbnail" src="<%= post.user.avatar.thumb.url %>" style="width: 32px;height: 32px;background-size: cover;display: block;border-radius: 30px; float:left;">
+			<img class="circle thumbnail" src="<%= post.user.avatar.thumb.url %>"
+				 style="width: 32px;height: 32px;background-size: cover;display: block;border-radius: 30px; float:left; margin-left: 5px; margin-top: 5px">
 			<% end %>
 		<% end %>
-		<!-- 내가 쓴글 이름에도 적용 -->
-		<%= link_to mypost_path(post.user.id), style: "margin-left: 5px;" do %>
+		
+		
+		<!-- 글 작성자명 적용 -->
+		<%= link_to mypost_path(post.user.id), style: "margin-left: 5px;  font-size:20pt" do %>
 			<%= post.user.name %>
 		<% end %>
-
-			
+		
+		
+		<!-- 유저가 로그인 했는지 확인하고 현재 유저와 게시물 유저가 일치하지 않으면 팔로우 -->
 		<% if user_signed_in? && current_user != post.user %>
-		 <% if current_user.followings.include?(post.user) %>		  
-		<%= form_tag follow_path(post.user.id), remote:true,  method: :delete, class: "right" do %>		
-		  <button class= "btn"> 팔로우 취소</button>
-		  <% end %>
+		 		<% if current_user.followings.include?(post.user) %>		  
+					<%= form_tag follow_path(post.user.id), remote:true,  method: :delete, class: "right", style:"margin-right:10px; margin-top:5px" do %>
+		  			<%= image_submit_tag '/person_check.png', height:'32', width:'32' %>
+		  			<% end %>
 		<% else %>
-		<%= form_tag follows_path, method: :post, remote:true, class: "right" do %>
-		  <input type="hidden" name="followed_id" value="<%= post.user.id %>">		
-		  <button class= "btn"> 팔로우</button>
-		 <% end %>
+					<%= form_tag follows_path, method: :post, remote:true, class: "right", style:"margin-right:10px; margin-top:5px" do %>
+		  			<input type="hidden" name="followed_id" value="<%= post.user.id %>">		
+		  			<%= image_submit_tag '/person_add_1.png', height:'32', width:'32' %>
+		 			<% end %>
+				<% end %>
 		<% end %>
-	<% end %>
-			<!-- 작성 이미지 업로드 -->
+		
+		
+		<!-- 작성 이미지 업로드 -->
 		<div class= "card-content">
 			<% if post.image.url %>
 				<img class="image-size" src= "<%= post.image.url%>">
 			<% end %>
 		</div>
-			<!-- 작성 내용 -->
-		<p class= "pre-line"><%= post.content %></p>
-	</div>
+		
+		<!-- 작성 내용 -->
+		<!-- 내가 쓴글 이름에도 적용 -->
+		<%= link_to mypost_path(post.user.id), style: "margin-left: 10px; font-size:12pt" do %>
+			<%= post.user.name %>
+		<% end %>
+		<%= post.content %>
+
 		<!-- 좋아요 -->
-	<div class="card-action">
+	<div class="card-content">
+		<div class="card-post">
 			<% if current_user.is_like?(post) %>
 				<%= link_to image_tag("/like.png", height: '20', width: '20'), post_like_path(post), remote:true, method: "post" %>
 			<% else %>
 				<%= link_to image_tag("/unlike.png", height: '20', width: '20'), post_like_path(post),remote:true, method: "post" %>
 			<% end %>
 				<span>좋아요 <%= post.likes.size%>개</span>
-		<span style="float:right"><%="#{time_ago_in_words(post.created_at)} ago "%></span>
 		<!-- 현재유저와 작성자 유저가 일치하면 삭제 and 수정 -->
 		<% if current_user.id == post.user.id %>
-			<%= link_to "삭제", post_path(post), method: "delete", :style=> "float:right" %>		
-			<%= link_to "수정", edit_post_path(post), :style => "float:right"%>
+			<span style="float:bottom"><%="#{time_ago_in_words(post.created_at)} ago "%></span>
+			<%= link_to "삭제", post_path(post), method: "delete", class: "right"%>		
+			<%= link_to "수정", edit_post_path(post), class: "right"%>
 		<% end %>
 		</div>
-		
-				<div class="card-action"> 
+	</div>
+	</div>
+				 
 			<%= form_tag post_comments_path(post) do %>
 			  <div class="input-field">
 				  <%= text_area_tag :content, nil, class: "textarea", placeholder: "댓글을 작성해주세요.", required: true %>
 			  </div>
 			<div class="input-field">
-				<%= button_tag "댓글 쓰기", class: "btn" %>
+				<%= button_tag "댓글 쓰기", class: "btn center"%>
 			</div>
 			<% end %>
 			<% if post.comments.present? %>
@@ -70,8 +85,7 @@
 					<% end %> 
 				</li> 
 				<% end %>
-			</ul> 
+			</ul>
 		<% end %>
 
-	</div>
-</div>
+	
