@@ -56,11 +56,11 @@
 			<% end %>
 				<span>좋아요 <%= post.likes.size%>개</span>
 		<!-- 현재유저와 작성자 유저가 일치하면 삭제 and 수정 -->
-		<% if current_user.id == post.user.id %>
-			<span style="float:bottom"><%="#{time_ago_in_words(post.created_at)} ago "%></span>
+		<% if current_user.id == post.user.id %>		
 			<%= link_to "삭제", post_path(post), method: "delete", class: "right"%>		
 			<%= link_to "수정", edit_post_path(post), class: "right"%>
 		<% end %>
+			<span style="float:bottom"><%="#{time_ago_in_words(post.created_at)} ago "%></span>
 		</div>
 	</div>
 	</div>
