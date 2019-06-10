@@ -1,3 +1,4 @@
+<h2 class="headertekst">My Diary</h2>
 <div class="card post">
 <% @mypost.each do |mp| %>
 <div class="card post" style= "width: 25rem; margin:0 auto" >
@@ -47,7 +48,9 @@
 			<ul class="collection">
 				<% mp.comments.each do |comment| %> 
 				<li class="collection-item">
-					<span class="title"><%= comment.user.name %></span> 
+					<%= link_to mypost_path(comment.user.id), style: "margin-left: 5px;  font-size:20pt" do %>
+					<span class="title"><%= comment.user.name %></span>
+					<% end %>
 					<span class="right"><%= comment.created_at %></span> 
 					<p class="pre-line"> <p><%= comment.content %></p>
 					<% if comment.user.id == current_user.id %>

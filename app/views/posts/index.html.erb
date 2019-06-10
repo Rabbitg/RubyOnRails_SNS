@@ -15,7 +15,7 @@
 					<p>팔로워 : <%= current_user.followers.length %></p>
 					<p>팔로잉 : <%= current_user.followings.length %></p>
 					<%= link_to mypost_path(current_user.id) do %>
-					<p>내가 쓴 글 </p>
+					<p>내가 작성한 글 보러가기 </p>
 					<% end %>
 					<%= link_to new_post_path do %> 
 					<button class="btn">글 쓰기</button>
